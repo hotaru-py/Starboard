@@ -7,6 +7,9 @@ function App() {
   const [slider3Value, setSlider3Value] = useState(50);
   const [slider4Value, setSlider4Value] = useState(50);
   const [slider5Value, setSlider5Value] = useState(50);
+  const [slider6Value, setSlider6Value] = useState(50);
+  const [slider7Value, setSlider7Value] = useState(50);
+  const [slider8Value, setSlider8Value] = useState(50);
 
   return (
     <div>
@@ -52,82 +55,77 @@ function App() {
           <div className="flex flex-col w-2/5 ml-4">
             <div
               id="config"
-              className="bg-[#778DA9] rounded-2xl h-[600px] flex justify-left"
+              className="bg-[#778DA9] rounded-2xl h-[600px] flex justify-left overflow-y-auto relative"
             >
               <div className="p-8">
-                <div className="text-3xl font-semibold mb-4">
-                  Configure factor weights
+                {/* Title stays fixed on top */}
+                <div className="text-3xl font-semibold mb-4 sticky top-0 bg-[#778DA9] z-10 pb-4">
+                  Configure Feature Weights
                 </div>
 
-                {/* Factor slider 1 */}
-                <div className="py-4">
-                  <label htmlFor="f1" className="block mb-2 text-xl">
-                    Factor 1: {slider1Value / 100}
-                  </label>
-                  <input
-                    id="f1"
-                    type="range"
-                    value={slider1Value}
-                    onChange={(e) => setSlider1Value(e.target.value)}
-                    className="w-96 h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer"
-                  />
-                </div>
-
-                {/* Factor slider 2 */}
-                <div className="py-4">
-                  <label htmlFor="f2" className="block mb-2 text-xl">
-                    Factor 2: {slider2Value / 100}
-                  </label>
-                  <input
-                    id="f2"
-                    type="range"
-                    value={slider2Value}
-                    onChange={(e) => setSlider2Value(e.target.value)}
-                    className="w-96 h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer"
-                  />
-                </div>
-
-                {/* Factor slider 3 */}
-                <div className="py-4">
-                  <label htmlFor="f3" className="block mb-2 text-xl">
-                    Factor 3: {slider3Value / 100}
-                  </label>
-                  <input
-                    id="f3"
-                    type="range"
-                    value={slider3Value}
-                    onChange={(e) => setSlider3Value(e.target.value)}
-                    className="w-96 h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer"
-                  />
-                </div>
-
-                {/* Factor slider 4 */}
-                <div className="py-4">
-                  <label htmlFor="f4" className="block mb-2 text-xl">
-                    Factor 4: {slider4Value / 100}
-                  </label>
-                  <input
-                    id="f4"
-                    type="range"
-                    value={slider4Value}
-                    onChange={(e) => setSlider4Value(e.target.value)}
-                    className="w-96 h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer"
-                  />
-                </div>
-
-                {/* Factor slider 5 */}
-                <div className="py-4">
-                  <label htmlFor="f5" className="block mb-2 text-xl">
-                    Factor 5: {slider5Value / 100}
-                  </label>
-                  <input
-                    id="f5"
-                    type="range"
-                    value={slider5Value}
-                    onChange={(e) => setSlider5Value(e.target.value)}
-                    className="w-96 h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer"
-                  />
-                </div>
+                {[1, 2, 3, 4, 5, 6, 7, 8].map((num) => (
+                  <div className="py-4" key={num}>
+                    <label
+                      htmlFor={`f${num}`}
+                      className="block mb-2 text-xl"
+                    >{`Feature ${num}: ${
+                      num === 1
+                        ? slider1Value / 100
+                        : num === 2
+                        ? slider2Value / 100
+                        : num === 3
+                        ? slider3Value / 100
+                        : num === 4
+                        ? slider4Value / 100
+                        : num === 5
+                        ? slider5Value / 100
+                        : num === 6
+                        ? slider6Value / 100
+                        : num === 7
+                        ? slider7Value / 100
+                        : slider8Value / 100
+                    }`}</label>
+                    <input
+                      id={`f${num}`}
+                      type="range"
+                      value={
+                        num === 1
+                          ? slider1Value
+                          : num === 2
+                          ? slider2Value
+                          : num === 3
+                          ? slider3Value
+                          : num === 4
+                          ? slider4Value
+                          : num === 5
+                          ? slider5Value
+                          : num === 6
+                          ? slider6Value
+                          : num === 7
+                          ? slider7Value
+                          : slider8Value
+                      }
+                      onChange={(e) =>
+                        num === 1
+                          ? setSlider1Value(e.target.value)
+                          : num === 2
+                          ? setSlider2Value(e.target.value)
+                          : num === 3
+                          ? setSlider3Value(e.target.value)
+                          : num === 4
+                          ? setSlider4Value(e.target.value)
+                          : num === 5
+                          ? setSlider5Value(e.target.value)
+                          : num === 6
+                          ? setSlider6Value(e.target.value)
+                          : num === 7
+                          ? setSlider7Value(e.target.value)
+                          : setSlider8Value(e.target.value)
+                      }
+                      className="w-96 h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer"
+                    />
+                  </div>
+                ))}
               </div>
             </div>
           </div>

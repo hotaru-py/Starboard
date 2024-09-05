@@ -15,7 +15,7 @@ function App() {
           <div className="container mx-auto flex justify-between items-center">
             <h1 className="text-lg font-semibold">💫 Starboard</h1>
             <a
-              href="https://github.com/hotaru-hspr/SIH-24-Frontend"
+              href="https://github.com/hotaru-hspr/Starboard-SIH-2024"
               target="_blank"
               rel="noopener noreferrer"
             >
@@ -62,7 +62,7 @@ function App() {
                 {/* Factor slider 1 */}
                 <div className="py-4">
                   <label htmlFor="f1" className="block mb-2 text-xl">
-                    Factor 1: {slider1Value}
+                    Factor 1: {slider1Value / 100}
                   </label>
                   <input
                     id="f1"
@@ -76,7 +76,7 @@ function App() {
                 {/* Factor slider 2 */}
                 <div className="py-4">
                   <label htmlFor="f2" className="block mb-2 text-xl">
-                    Factor 2: {slider2Value}
+                    Factor 2: {slider2Value / 100}
                   </label>
                   <input
                     id="f2"
@@ -90,7 +90,7 @@ function App() {
                 {/* Factor slider 3 */}
                 <div className="py-4">
                   <label htmlFor="f3" className="block mb-2 text-xl">
-                    Factor 3: {slider3Value}
+                    Factor 3: {slider3Value / 100}
                   </label>
                   <input
                     id="f3"
@@ -104,7 +104,7 @@ function App() {
                 {/* Factor slider 4 */}
                 <div className="py-4">
                   <label htmlFor="f4" className="block mb-2 text-xl">
-                    Factor 4: {slider4Value}
+                    Factor 4: {slider4Value / 100}
                   </label>
                   <input
                     id="f4"
@@ -118,7 +118,7 @@ function App() {
                 {/* Factor slider 5 */}
                 <div className="py-4">
                   <label htmlFor="f5" className="block mb-2 text-xl">
-                    Factor 5: {slider5Value}
+                    Factor 5: {slider5Value / 100}
                   </label>
                   <input
                     id="f5"

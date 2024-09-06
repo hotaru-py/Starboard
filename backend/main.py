@@ -1,11 +1,12 @@
-import logging
+# import logging
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import FileResponse
 from pydantic import BaseModel
 from opencage.geocoder import OpenCageGeocode
 from dotenv import load_dotenv
 import os
-
+from route_gen import get_optimal_route
 
 # Did not gitignore .env since repo is private.
 load_dotenv()
@@ -59,7 +60,7 @@ async def save_locations(locations: Locations):
                 locations_storage.pop("to", None)
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
-    return {"message": "Locations saved successfully!"}
+    return {"message": "Locations saved successfully!", "from_coords": coordinates_from, "to_coords": coordinates_to}
 
 @app.get("/api/get-factors")
 async def get_factors():
@@ -68,3 +69,8 @@ async def get_factors():
 @app.get("/api/get-locations")
 async def get_locations():
     return locations_storage
+
+@app.get("/api/get-ship-route")
+async def get_ship_route():
+    get_optimal_route(locations_storage)
+    return FileResponse(path="route.png", media_type="image/png", filename="route.png")

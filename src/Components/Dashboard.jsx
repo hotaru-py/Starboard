@@ -10,6 +10,62 @@ function Dashboard() {
   const [slider6Value, setSlider6Value] = useState(50);
   const [slider7Value, setSlider7Value] = useState(50);
   const [slider8Value, setSlider8Value] = useState(50);
+  const [fromLocation, setFromLocation] = useState("");
+  const [toLocation, setToLocation] = useState("");
+
+  const saveFactors = async () => {
+    const data = {
+      slider1: slider1Value,
+      slider2: slider2Value,
+      slider3: slider3Value,
+      slider4: slider4Value,
+      slider5: slider5Value,
+      slider6: slider6Value,
+      slider7: slider7Value,
+      slider8: slider8Value,
+    };
+
+    try {
+      const response = await fetch("http://localhost:8000/api/save-factors", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      });
+
+      const result = await response.json();
+      alert(result.message);
+    } catch (error) {
+      console.error("Error:", error);
+    }
+  };
+
+  const saveLocations = async () => {
+    const data = {
+      from_location: fromLocation,
+      to_location: toLocation,
+    };
+
+    try {
+      const response = await fetch("http://localhost:8000/api/save-locations", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      });
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+
+      const result = await response.json();
+      alert(result.message);
+    } catch (error) {
+      console.error("Error:", error);
+    }
+  };
 
   return (
     <div>
@@ -39,12 +95,18 @@ function Dashboard() {
             <input
               type="text"
               placeholder="From"
+              value={fromLocation}
+              onChange={(e) => setFromLocation(e.target.value)}
               className="p-4 w-96 rounded-lg bg-[#E0E1DD] text-black border-2 border-gray-600 focus:outline-none"
+              onKeyDown={(e) => e.key === "Enter" && saveLocations()}
             />
             <input
               type="text"
               placeholder="To"
+              value={toLocation}
+              onChange={(e) => setToLocation(e.target.value)}
               className="p-4 ml-4 w-96 rounded-lg bg-[#E0E1DD] text-black border-2 border-gray-600 focus:outline-none"
+              onKeyDown={(e) => e.key === "Enter" && saveLocations()}
             />
           </div>
         </div>
@@ -65,7 +127,10 @@ function Dashboard() {
               <div className="p-8 ">
                 <div className="text-3xl font-semibold mb-4 flex sticky items-center top-0 bg-[#778DA9] z-10 pb-4">
                   Configure Feature Weights
-                  <button className="bg-[#415A77] rounded-2xl p-4 text-sm ml-4 hover:bg-[#0D1B2A] transition">
+                  <button
+                    onClick={saveFactors}
+                    className="bg-[#415A77] rounded-2xl p-4 text-sm ml-4 hover:bg-[#0D1B2A] transition"
+                  >
                     Generate route
                   </button>
                 </div>

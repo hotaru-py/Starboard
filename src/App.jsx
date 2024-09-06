@@ -14,11 +14,14 @@ function App() {
   return (
     <div>
       <main className="bg-[#0D1B2A] text-white min-h-screen">
-        <nav className="bg-[#1B263B]/50 text-white p-6">
+        <nav className="bg-[#1B263B]/50 text-white p-6 shadow">
           <div className="container mx-auto flex justify-between items-center">
-            <h1 className="text-lg font-semibold">💫 Starboard</h1>
+            <div className="flex">
+              <h1 className="text-lg font-bold">💫 Starboard</h1>
+              <h1 className="ml-1 text-lg font-light">by Team Evergreen</h1>
+            </div>
             <a
-              href="https://github.com/hotaru-hspr/Starboard-SIH-2024"
+              href="https://github.com/hotaru-hspr/Starboard"
               target="_blank"
               rel="noopener noreferrer"
             >
@@ -57,10 +60,12 @@ function App() {
               id="config"
               className="bg-[#778DA9] rounded-2xl h-[600px] flex justify-left overflow-y-auto relative"
             >
-              <div className="p-8">
-                {/* Title stays fixed on top */}
-                <div className="text-3xl font-semibold mb-4 sticky top-0 bg-[#778DA9] z-10 pb-4">
+              <div className="p-8 ">
+                <div className="text-3xl font-semibold mb-4 flex sticky items-center top-0 bg-[#778DA9] z-10 pb-4">
                   Configure Feature Weights
+                  <button className="bg-[#415A77] rounded-2xl p-4 text-sm ml-4 hover:bg-[#0D1B2A] transition">
+                    Generate route
+                  </button>
                 </div>
 
                 {[1, 2, 3, 4, 5, 6, 7, 8].map((num) => (

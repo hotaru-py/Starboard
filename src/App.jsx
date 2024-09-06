@@ -7,6 +7,59 @@ function App() {
   const [slider3Value, setSlider3Value] = useState(50);
   const [slider4Value, setSlider4Value] = useState(50);
   const [slider5Value, setSlider5Value] = useState(50);
+  const [fromLocation, setFromLocation] = useState("");
+  const [toLocation, setToLocation] = useState("");
+
+  const saveFactors = async () => {
+    const data = {
+      slider1: slider1Value,
+      slider2: slider2Value,
+      slider3: slider3Value,
+      slider4: slider4Value,
+      slider5: slider5Value
+    };
+  
+    try {
+      const response = await fetch('http://localhost:8000/api/save-factors', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+      });
+  
+      const result = await response.json();
+      alert(result.message);
+    } catch (error) {
+      console.error('Error:', error);
+    }
+  };  
+
+  const saveLocations = async () => {
+    const data = {
+      from_location: fromLocation,
+      to_location: toLocation
+    };
+
+    try {
+      const response = await fetch('http://localhost:8000/api/save-locations', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+      });
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+
+      const result = await response.json();
+      alert(result.message);
+    } catch (error) {
+      console.error('Error:', error);
+    }
+  };
 
   return (
     <div>
@@ -28,16 +81,22 @@ function App() {
           <h2 className="text-5xl font-bold text-left">Welcome Aboard!</h2>
 
           <div className="flex ml-auto">
-            <input
-              type="text"
-              placeholder="From"
-              className="p-4 w-96 rounded-lg bg-[#E0E1DD] text-black border-2 border-gray-600 focus:outline-none"
-            />
-            <input
-              type="text"
-              placeholder="To"
-              className="p-4 ml-4 w-96 rounded-lg bg-[#E0E1DD] text-black border-2 border-gray-600 focus:outline-none"
-            />
+          <input
+            type="text"
+            placeholder="From"
+            value={fromLocation}
+            onChange={(e) => setFromLocation(e.target.value)}
+            className="p-4 w-96 rounded-lg bg-[#E0E1DD] text-black border-2 border-gray-600 focus:outline-none"
+            onKeyDown={(e) => e.key === 'Enter' && saveLocations()}
+          />
+          <input
+            type="text"
+            placeholder="To"
+            value={toLocation}
+            onChange={(e) => setToLocation(e.target.value)}
+            className="p-4 ml-4 w-96 rounded-lg bg-[#E0E1DD] text-black border-2 border-gray-600 focus:outline-none"
+            onKeyDown={(e) => e.key === 'Enter' && saveLocations()}
+          />
           </div>
         </div>
 
@@ -70,6 +129,7 @@ function App() {
                     value={slider1Value}
                     onChange={(e) => setSlider1Value(e.target.value)}
                     className="w-96 h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer"
+                    onClick={saveFactors}
                   />
                 </div>
 
@@ -84,6 +144,7 @@ function App() {
                     value={slider2Value}
                     onChange={(e) => setSlider2Value(e.target.value)}
                     className="w-96 h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer"
+                    onClick={saveFactors}
                   />
                 </div>
 
@@ -98,6 +159,7 @@ function App() {
                     value={slider3Value}
                     onChange={(e) => setSlider3Value(e.target.value)}
                     className="w-96 h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer"
+                    onClick={saveFactors}
                   />
                 </div>
 
@@ -112,6 +174,7 @@ function App() {
                     value={slider4Value}
                     onChange={(e) => setSlider4Value(e.target.value)}
                     className="w-96 h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer"
+                    onClick={saveFactors}
                   />
                 </div>
 
@@ -126,6 +189,7 @@ function App() {
                     value={slider5Value}
                     onChange={(e) => setSlider5Value(e.target.value)}
                     className="w-96 h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer"
+                    onClick={saveFactors}
                   />
                 </div>
               </div>

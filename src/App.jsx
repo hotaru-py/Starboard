@@ -21,7 +21,7 @@ function App() {
               <h1 className="ml-1 text-lg font-light">by Team Evergreen</h1>
             </div>
             <a
-              href="https://github.com/hotaru-hspr/Starboard-SIH-2024"
+              href="https://github.com/hotaru-hspr/Starboard"
               target="_blank"
               rel="noopener noreferrer"
             >

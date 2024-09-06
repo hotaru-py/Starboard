@@ -4,7 +4,6 @@ import Home from "./Components/Home";
 import Dashboard from "./Components/Dashboard";
 
 function App() {
-<<<<<<< HEAD
   const [slider1Value, setSlider1Value] = useState(50);
   const [slider2Value, setSlider2Value] = useState(50);
   const [slider3Value, setSlider3Value] = useState(50);
@@ -201,15 +200,6 @@ function App() {
         </div>
       </main>
     </div>
-=======
-  return (
-    <Router>
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/dashboard" element={<Dashboard />} />
-      </Routes>
-    </Router>
->>>>>>> ddd46a716070d814f78ea7ba480cfffae02a7cbd
   );
 }
 

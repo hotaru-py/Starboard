@@ -89,9 +89,12 @@ function Dashboard() {
         </nav>
 
         <div className="container mx-auto py-8 flex items-center justify-between">
-          <h2 className="text-5xl font-bold text-left">Welcome Aboard!</h2>
+          <h2 className="text-5xl font-bold text-left">Dashboard</h2>
 
           <div className="flex ml-auto">
+            <p className="p-4 w-48 bg-transparent font-bold">
+              Plan out your journey
+            </p>
             <input
               type="text"
               placeholder="From"

@@ -5,7 +5,7 @@ import numpy as np
 import xarray as xr
 from skimage.graph import route_through_array
 
-dataset = xr.open_dataset('../../cmems_2024-09-05.nc')
+dataset = xr.open_dataset('backend/cmems_2024-09-05.nc')
 features = {
     'VHM0': 'Spectral significant wave height',
     'VTM10': 'Spectral moments (-1,0) wave period',

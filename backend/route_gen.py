@@ -5,7 +5,7 @@ import matplotlib.pyplot as plt
 from skimage.graph import route_through_array
 
 def get_optimal_route(coords):
-    dataset = xr.open_dataset('./cmems_mod_glo_wav_anfc_0.083deg_PT3H-i_multi-vars_180.00W-179.92E_80.00S-90.00N_2024-09-05.nc')
+    dataset = xr.open_dataset('./cmems_2024-09-05.nc')
     features = {
     'VHM0': 'Spectral significant wave height',
     'VTM10': 'Spectral moments (-1,0) wave period',

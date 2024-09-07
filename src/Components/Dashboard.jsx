@@ -37,9 +37,8 @@ function Dashboard() {
       const result = await response.json();
       console.log(result);
 
-      // Update the details state instead of manipulating the DOM
       setDetails(
-        `Departing from ${fromLocation} (${result.from_coords.lat}, ${result.from_coords.lng}) - Arriving at ${toLocation} (${result.to_coords.lat}, ${result.to_coords.lng})`
+        `Departing from ${fromLocation} (${result.from_coords.lat}, ${result.from_coords.lng}) | Arriving at ${toLocation} (${result.to_coords.lat}, ${result.to_coords.lng})`
       );
     } catch (error) {
       console.error("Error:", error);
@@ -123,11 +122,15 @@ function Dashboard() {
                 <Loader />
               ) : plotUrl ? (
                 <img
-                  className="hover:scale-150 transition-transform duration-300"
+                  className="h-[550px] transition-transform duration-300"
                   src={plotUrl}
                   alt="Generated Plot"
                   onMouseMove={handleMouseMove}
                   style={{ transformOrigin: origin }}
+                  onMouseEnter={(e) =>
+                    (e.target.style.transform = "scale(2.5)")
+                  }
+                  onMouseLeave={(e) => (e.target.style.transform = "scale(1)")}
                 />
               ) : (
                 <div className="text-2xl">

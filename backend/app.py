@@ -13,7 +13,7 @@ API_KEY = os.getenv("API_KEY")
 API_PREFIX = "/api"
 
 
-app = FastAPI(openapi_prefix=API_PREFIX)
+app = FastAPI(root_path=API_PREFIX)
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],

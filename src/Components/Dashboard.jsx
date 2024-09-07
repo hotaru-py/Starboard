@@ -1,5 +1,6 @@
 import { useState } from "react";
 import Navbar from "./Navbar";
+import Loader from "./Loader";
 
 function Dashboard() {
   const [slider1Value, setSlider1Value] = useState(20);
@@ -9,30 +10,9 @@ function Dashboard() {
   const [fromLocation, setFromLocation] = useState("");
   const [toLocation, setToLocation] = useState("");
   const [plotUrl, setPlotUrl] = useState("");
-
-  // const saveFactors = async () => {
-  //   const data = {
-  //     slider1: slider1Value,
-  //     slider2: slider2Value,
-  //     slider3: slider3Value,
-  //     slider4: slider4Value,
-  //   };
-
-  //   try {
-  //     const response = await fetch("http://localhost:8000/api/save-factors", {
-  //       method: "POST",
-  //       headers: {
-  //         "Content-Type": "application/json",
-  //       },
-  //       body: JSON.stringify(data),
-  //     });
-
-  //     const result = await response.json();
-  //     alert(result.message);
-  //   } catch (error) {
-  //     console.error("Error:", error);
-  //   }
-  // };
+  const [loading, setLoading] = useState(false);
+  const [details, setDetails] = useState("");
+  const [statusMessage, setStatusMessage] = useState("");
 
   const saveLocations = async () => {
     const data = {
@@ -41,6 +21,7 @@ function Dashboard() {
     };
 
     try {
+      setLoading(true);
       const response = await fetch("http://localhost:8000/api/save-locations", {
         method: "POST",
         headers: {
@@ -54,23 +35,12 @@ function Dashboard() {
       }
 
       const result = await response.json();
-      console.log(result.from_coords);
-      alert(result.message);
-      document.getElementById("det").innerHTML =
-        "Departing from " +
-        fromLocation +
-        " (" +
-        result.from_coords.lat +
-        ", " +
-        result.from_coords.lng +
-        ")" +
-        " - Arriving at " +
-        toLocation +
-        " (" +
-        result.to_coords.lat +
-        ", " +
-        result.to_coords.lng +
-        ")";
+      console.log(result);
+
+      // Update the details state instead of manipulating the DOM
+      setDetails(
+        `Departing from ${fromLocation} (${result.from_coords.lat}, ${result.from_coords.lng}) - Arriving at ${toLocation} (${result.to_coords.lat}, ${result.to_coords.lng})`
+      );
     } catch (error) {
       console.error("Error:", error);
     }
@@ -78,17 +48,32 @@ function Dashboard() {
 
   const generatePlot = async () => {
     try {
+      setLoading(true);
       const response = await fetch("http://localhost:8000/api/get-ship-route");
       if (response.ok) {
         const blob = await response.blob();
         const url = URL.createObjectURL(blob);
         setPlotUrl(url); // Set the plot URL in state
       } else {
-        console.error("Failed to generate plot");
+        setStatusMessage("Failed to generate plot! ");
       }
+      setLoading(false);
     } catch (error) {
       console.error("Error:", error);
+      setLoading(false);
+      setStatusMessage("Failed to generate plot!");
     }
+  };
+
+  const [origin, setOrigin] = useState("center center");
+
+  const handleMouseMove = (e) => {
+    const { offsetX, offsetY, target } = e.nativeEvent;
+    const { offsetWidth, offsetHeight } = target;
+    const xPercent = (offsetX / offsetWidth) * 100;
+    const yPercent = (offsetY / offsetHeight) * 100;
+
+    setOrigin(`${xPercent}% ${yPercent}%`);
   };
 
   return (
@@ -118,7 +103,6 @@ function Dashboard() {
             />
             <button
               onClick={() => {
-                // saveFactors();
                 saveLocations();
                 generatePlot();
               }}
@@ -133,15 +117,23 @@ function Dashboard() {
           <div className="flex min-w-screen justify-between px-16 py-4">
             <div
               id="map"
-              className="bg-[#415A77] rounded-2xl h-[500px] w-4/5 flex items-center justify-center"
+              className="bg-[#415A77] rounded-2xl h-[500px] w-4/5 flex items-center justify-center overflow-hidden"
             >
-              <div className="text-2xl font-semibold">
-                {plotUrl ? (
-                  <img src={plotUrl} alt="Generated Plot" />
-                ) : (
-                  <p>No route generated yet!</p>
-                )}
-              </div>
+              {loading ? (
+                <Loader />
+              ) : plotUrl ? (
+                <img
+                  className="hover:scale-150 transition-transform duration-300"
+                  src={plotUrl}
+                  alt="Generated Plot"
+                  onMouseMove={handleMouseMove}
+                  style={{ transformOrigin: origin }}
+                />
+              ) : (
+                <div className="text-2xl">
+                  {statusMessage || "No route generated yet!"}
+                </div>
+              )}
             </div>
 
             <div className="flex flex-col w-2/5 ml-4">
@@ -152,6 +144,7 @@ function Dashboard() {
                 <div className="p-8 ">
                   <div className="text-3xl font-semibold mb-4 flex sticky items-center top-0 bg-[#778DA9] z-10 pb-4">
                     Configure Feature Weights
+                    <p className="ml-2 text-[#1B263B]"> [WIP]</p>
                   </div>
 
                   {[1, 2, 3, 4].map((num) => (
@@ -200,7 +193,7 @@ function Dashboard() {
         </div>
         <div className="items-center justify-left ml-16 mr-16 mb-16 bg-[#1B263B] rounded-2xl h-[60px] justify-between min-w-screen px-8 py-4 flex">
           <p className="font-bold">Journey Details</p>
-          <p id="det" className="ml-12"></p>
+          <p className="ml-12">{details}</p>
         </div>
       </main>
     </div>

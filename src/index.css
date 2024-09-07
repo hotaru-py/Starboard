@@ -8,3 +8,21 @@ body {
   font-weight: <weight>;
   font-style: normal;
 }
+
+.loader {
+  border: 10px solid #0d1b2a;
+  border-top: 10px solid #e0e1dd;
+  border-radius: 50%;
+  width: 80px;
+  height: 80px;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}

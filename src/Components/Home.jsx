@@ -24,7 +24,7 @@ function Home() {
             <img
               src={gr1}
               alt="Graphic"
-              className="w-[500px] h-auto hover:scale-125 transition mr-20"
+              className="w-[600px] h-auto hover:scale-125 transition mr-10"
             />
           </div>
         </div>

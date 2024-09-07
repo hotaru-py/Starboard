@@ -60,7 +60,7 @@ async def save_locations(locations: Locations):
                 locations_storage.pop("to", None)
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
-    return {"message": "Locations saved successfully!", "from_coords": coordinates_from, "to_coords": coordinates_to}
+    return {"message": "Locations identified and passed!", "from_coords": coordinates_from, "to_coords": coordinates_to}
 
 @app.get("/api/get-factors")
 async def get_factors():

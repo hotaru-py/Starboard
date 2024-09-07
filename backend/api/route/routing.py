@@ -5,9 +5,15 @@ from fastapi.exceptions import HTTPException
 from fastapi.routing import APIRouter
 from fastapi.responses import FileResponse
 from opencage.geocoder import OpenCageGeocode
-
-from backend.api.service.models import Factors, Locations
-from backend.api.service.route_gen import get_optimal_route
+try:
+    from backend.api.service.models import Factors, Locations
+    from backend.api.service.route_gen import get_optimal_route
+except ModuleNotFoundError:
+    # we wont reach this block when running in a venv
+    # but we're sometimes not able to import backend.api.{something}, for some reason
+    # importing api.{something} works, though
+    from api.service.models import Factors, Locations
+    from api.service.route_gen import get_optimal_route
 
 router = APIRouter()
 

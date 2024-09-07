@@ -22,13 +22,16 @@ function Dashboard() {
 
     try {
       setLoading(true);
-      const response = await fetch("http://localhost:8000/api/save-locations", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(data),
-      });
+      const response = await fetch(
+        "http://localhost:8000/api/routing/save-locations",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(data),
+        }
+      );
 
       if (!response.ok) {
         throw new Error(`HTTP error! Status: ${response.status}`);
@@ -48,7 +51,9 @@ function Dashboard() {
   const generatePlot = async () => {
     try {
       setLoading(true);
-      const response = await fetch("http://localhost:8000/api/get-ship-route");
+      const response = await fetch(
+        "http://localhost:8000/api/routing/get-ship-route"
+      );
       if (response.ok) {
         const blob = await response.blob();
         const url = URL.createObjectURL(blob);

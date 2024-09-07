@@ -74,7 +74,7 @@ async def get_ship_route():
     save_directory = os.path.split(os.path.abspath(__file__))[0]
     save_path = os.path.join(save_directory, "route.png")
     get_optimal_route(locations_storage, save_path)
-    return FileResponse(path="backend/api/route/route.png", media_type="image/png", filename="route.png")
+    return FileResponse(path=save_path, media_type="image/png", filename="route.png")
 
 
 def setup(app):

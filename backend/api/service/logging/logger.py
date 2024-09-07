@@ -1,40 +1,28 @@
 # This logger aims to follow the Observer Design Pattern.
+# Logger sends notifications to every Observer, which handler that event however it wants
+# This means that we can simultaneously stream logs to the screen, as well as write to a Text and JSON file.
 # Hopefully this turns out good.
 
-class EventTypes:
-    # enum class for types of events that can be sent
-    WARNING: str
-    ERROR: str
-    MESSAGE: str
-
-
-class LogPrinter:
-    def __init__(self):
-        self.prefix = "|--- "  # |--- Warning: Something is wrong
-        # todo: frame the outputs for different kinds of messages
-
-    def print_error(self, error_message: str):
-        print(error_message)
-
-    def print_warning(self, message: str):
-        print(message)
-
-    def print_message(self, message):
-        print(message)
-
-    def notify(self, file: str, event_type: str, message: str):
-        if event_type == EventTypes.ERROR:
-            self.print_error(message)
-        elif event_type == EventTypes.WARNING:
-            self.print_warning(message)
-        elif event_type == EventTypes.MESSAGE:
-            self.print_message(message)
+from backend.api.service.logging.events import EventTypes
+from backend.api.service.logging.printer import LogPrinter
 
 
 class Logger:
+    _instance = None
+
+    def __new__(cls, *args, **kwargs):
+        # This follows the Singleton Design Pattern.
+        # We don't want more than one instance of this class anywhere in the code.
+        if not cls._instance:
+            cls._instance = super().__new__(cls)
+        return cls._instance
+
     def __init__(self):
         self.observers = []
-        self.add_observer(LogPrinter())
+        log_printer = LogPrinter()
+        # We only have an observer that prints events on the screen.
+        # If we're making this into a proper product, we may need to make this configurable
+        self.add_observer(log_printer)
 
     def add_observer(self, observer):
         self.observers.append(observer)

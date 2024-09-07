@@ -1,10 +1,11 @@
-from fastapi.routing import APIRouter
+import os
+
+from dotenv import load_dotenv
 from fastapi.exceptions import HTTPException
+from fastapi.routing import APIRouter
 from opencage.geocoder import OpenCageGeocode
 
 from backend.api.service.models import Factors, Locations
-import os
-from dotenv import load_dotenv
 
 router = APIRouter()
 

@@ -3,9 +3,11 @@ import os
 from dotenv import load_dotenv
 from fastapi.exceptions import HTTPException
 from fastapi.routing import APIRouter
+from fastapi.responses import FileResponse
 from opencage.geocoder import OpenCageGeocode
 
 from backend.api.service.models import Factors, Locations
+from backend.api.service.route_gen import get_optimal_route
 
 router = APIRouter()
 
@@ -59,6 +61,14 @@ async def save_locations(locations: Locations):
         raise HTTPException(status_code=500, detail=str(e))
 
     return {"message": "Locations identified and passed!", "from_coords": coordinates_from, "to_coords": coordinates_to}
+
+
+@router.get("/get-ship-route")
+async def get_ship_route():
+    save_directory = os.path.split(os.path.abspath(__file__))[0]
+    save_path = os.path.join(save_directory, "route.png")
+    get_optimal_route(locations_storage, save_path)
+    return FileResponse(path="route.png", media_type="image/png", filename="route.png")
 
 
 def setup(app):

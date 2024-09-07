@@ -8,17 +8,11 @@ PS 1658 - Development of a versatile and fast algorithm for the optimal ship rou
 
 ## Run
 
-FastAPI Server:
+Backend:
 
-```cd backend```
+```python app.py```
 
-```python -m uvicorn main:app --reload```
-
-<br>
-
-React webpage:
-
-Make sure you're in the root directory of the project.
+Frontend:
 
 ```npm run dev```
 
@@ -27,3 +21,5 @@ Make sure you're in the root directory of the project.
 Once you open the webpage at ```localhost:5173```, head to the Dashboard using the button on the homepage or through ```localhost:5173/dashboard```.
 
 In the input boxes, give the Departure and Arrival cities and click on "Generate Route". After a few seconds of processing, the generated route will be displayed on the map section.
+
+(Feature weight sliders WIP)

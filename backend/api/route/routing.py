@@ -2,9 +2,10 @@ import os
 
 from dotenv import load_dotenv
 from fastapi.exceptions import HTTPException
-from fastapi.routing import APIRouter
 from fastapi.responses import FileResponse
+from fastapi.routing import APIRouter
 from opencage.geocoder import OpenCageGeocode
+
 try:
     from backend.api.service.models import Factors, Locations
     from backend.api.service.route_gen import get_optimal_route

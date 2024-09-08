@@ -10,7 +10,7 @@ PS 1658 - Development of a versatile and fast algorithm for the optimal ship rou
 
 Backend:
 
-```python app.py```
+```python backend/app.py```
 
 Frontend:
 

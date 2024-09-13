@@ -5,7 +5,15 @@ import numpy as np
 import xarray as xr
 from skimage.graph import route_through_array
 
-dataset = xr.open_dataset('backend/cmems_2024-09-05.nc')
+
+from api.service.dataset.loader import DatasetLoader
+
+loader = DatasetLoader()
+
+print("Loading Dataset")
+dataset = loader.load_data()
+print("Loaded Dataset Successfully!")
+
 features = {
     'VHM0': 'Spectral significant wave height',
     'VTM10': 'Spectral moments (-1,0) wave period',

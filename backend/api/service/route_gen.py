@@ -5,8 +5,10 @@ import numpy as np
 import xarray as xr
 from skimage.graph import route_through_array
 
-
-from api.service.dataset.loader import DatasetLoader
+try:
+    from api.service.dataset.loader import DatasetLoader
+except:
+    from dataset.loader import DatasetLoader
 
 loader = DatasetLoader()
 

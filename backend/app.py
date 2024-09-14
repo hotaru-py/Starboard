@@ -5,8 +5,11 @@ import uvicorn
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
+from backend.api.service.logging.logger import Logger
 API_PREFIX = "/api"
 
+
+logger = Logger()
 app = FastAPI(root_path=API_PREFIX)
 app.add_middleware(
     CORSMiddleware,
@@ -23,12 +26,12 @@ routes = [x.rstrip(".py") for x in os.listdir(routes_path) if x.endswith(".py") 
 
 for route in routes:
     # dynamically import all routes which are defined in "backend/api/route/"
-    print("Importing route from:", os.path.join(routes_path, route))
+    logger.warning(__file__, f"Importing route from: {os.path.join(routes_path, route)}")
     try:
         importlib.util.spec_from_file_location(route, os.path.join(routes_path, route))
         module = importlib.import_module(f"api.route.{route}")
         module.setup(app)
-        print("Added Route:", route)
+        logger.message(__file__, f"Added Route: {route}")
     except Exception as e:
         print("Failed:", type(e).__name__)
         print(e)

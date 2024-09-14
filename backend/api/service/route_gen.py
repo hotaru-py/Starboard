@@ -7,14 +7,12 @@ from skimage.graph import route_through_array
 
 try:
     from api.service.dataset.loader import DatasetLoader
-except:
+except ModuleNotFoundError:
     from dataset.loader import DatasetLoader
 
 loader = DatasetLoader()
 
-print("Loading Dataset")
 dataset = loader.load_data()
-print("Loaded Dataset Successfully!")
 
 features = {
     'VHM0': 'Spectral significant wave height',
@@ -42,6 +40,7 @@ def get_closest(array, value):
 
 
 def get_optimal_route(coords, save_path: str):
+    print(coords)
     start_lon = get_closest(dataset.longitude.data, coords['from']['longitude'])
     start_lat = get_closest(dataset.latitude.data, coords['from']['latitude'])
     end_lon = get_closest(dataset.longitude.data, coords['to']['longitude'])

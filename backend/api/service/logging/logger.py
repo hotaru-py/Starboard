@@ -22,25 +22,25 @@ class Logger:
         log_printer = LogPrinter()
         # We only have an observer that prints events on the screen.
         # If we're making this into a proper product, we may need to make this configurable
-        self.add_observer(log_printer)
+        self._add_observer(log_printer)
 
-    def add_observer(self, observer):
+    def _add_observer(self, observer):
         self.observers.append(observer)
 
-    def remove_observer(self, observer):
+    def _remove_observer(self, observer):
         if observer in self.observers:
             self.observers.remove(observer)
 
-    def notify_observers(self, file: str, event_type: str, description: str):
+    def _notify_observers(self, file: str, event_type: str, description: str):
         for observer in self.observers:
             observer.notify(file, event_type, description)
 
     def message(self, file: str, message: str):
-        self.notify_observers(file=file, event_type=EventTypes.MESSAGE, description=message)
+        self._notify_observers(file=file, event_type=EventTypes.MESSAGE, description=message)
 
     def warning(self, file: str, message: str):
-        self.notify_observers(file=file, event_type=EventTypes.WARNING, description=message)
+        self._notify_observers(file=file, event_type=EventTypes.WARNING, description=message)
 
     def exception(self, file: str, exception: Exception):
         message = f"{type(exception).__name__}: {exception}"
-        self.notify_observers(file=file, event_type=EventTypes.ERROR, description=message)
+        self._notify_observers(file=file, event_type=EventTypes.ERROR, description=message)

@@ -9,7 +9,7 @@ from opencage.geocoder import OpenCageGeocode
 try:
     from backend.api.service.models import Factors, Locations
     from backend.api.service.route_gen import get_optimal_route
-except ModuleNotFoundError:
+except:
     # we wont reach this block when running in a venv
     # but we're sometimes not able to import backend.api.{something}, for some reason
     # importing api.{something} works, though
@@ -72,8 +72,12 @@ async def save_locations(locations: Locations):
 
 @router.get("/get-ship-route")
 async def get_ship_route():
+    # we dont get the proper details if the port specified is invalid.
+    # in the "get_optimal_route" function, the "coords" object is not completely filled.
+    # todo: fix this.
     save_directory = os.path.split(os.path.abspath(__file__))[0]
     save_path = os.path.join(save_directory, "route.png")
+
     get_optimal_route(locations_storage, save_path)
     return FileResponse(path=save_path, media_type="image/png", filename="route.png")
 

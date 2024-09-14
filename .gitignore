@@ -27,3 +27,4 @@ route.png
 .ipynb_checkpoints
 
 backend/api/service/dataset/creds.json
+backend/api/service/dataset/data

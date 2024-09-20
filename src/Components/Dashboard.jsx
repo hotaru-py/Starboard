@@ -85,10 +85,12 @@ function Dashboard() {
       <main className="bg-[#0D1B2A] text-white min-h-screen">
         <Navbar />
 
-        <div className="container mx-auto py-8 flex items-center justify-between">
-          <h2 className="text-5xl font-bold text-left">Dashboard</h2>
-          <div className="flex ml-auto">
-            <p className="p-4 w-48 bg-transparent font-bold">
+        <div className="container mx-auto py-8 flex flex-col lg:flex-row lg:items-center lg:justify-between">
+          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-left">
+            Dashboard
+          </h2>
+          <div className="flex flex-col lg:flex-row lg:ml-auto mt-4 lg:mt-0">
+            <p className="p-2 md:p-4 w-40 lg:w-48 bg-transparent font-bold">
               Plan out your journey
             </p>
             <input
@@ -96,21 +98,21 @@ function Dashboard() {
               placeholder="Departing from"
               value={fromLocation}
               onChange={(e) => setFromLocation(e.target.value)}
-              className="p-4 w-96 rounded-lg bg-[#E0E1DD] text-black border-2 border-gray-600 focus:outline-none"
+              className="p-2 md:p-4 w-1/2 lg:w-64 rounded-2xl bg-[#E0E1DD] text-black border-2 border-gray-600 focus:outline-none mt-2 lg:mt-0"
             />
             <input
               type="text"
               placeholder="Arriving at"
               value={toLocation}
               onChange={(e) => setToLocation(e.target.value)}
-              className="p-4 ml-4 w-96 rounded-lg bg-[#E0E1DD] text-black border-2 border-gray-600 focus:outline-none"
+              className="p-2 md:p-4 w-1/2 lg:w-64 rounded-2xl bg-[#E0E1DD] text-black border-2 border-gray-600 focus:outline-none mt-2 lg:mt-0 lg:ml-2"
             />
             <button
               onClick={() => {
                 saveLocations();
                 generatePlot();
               }}
-              className="bg-[#415A77] rounded-2xl p-4 text-sm ml-4 hover:bg-[#E0E1DD] hover:text-black transition font-bold"
+              className="bg-[#415A77] rounded-2xl p-2 md:p-4 text-sm mt-4 lg:mt-0 lg:ml-4 hover:bg-[#E0E1DD] hover:text-black transition font-bold"
             >
               Generate route
             </button>
@@ -127,7 +129,7 @@ function Dashboard() {
                 <Loader />
               ) : plotUrl ? (
                 <img
-                  className="h-[550px] transition-transform duration-300"
+                  className="h-[550px] transition-transform duration-300 mb-6"
                   src={plotUrl}
                   alt="Generated Plot"
                   onMouseMove={handleMouseMove}
